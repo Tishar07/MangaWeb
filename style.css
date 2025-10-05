@@ -19,16 +19,15 @@
     justify-content: flex-start;
 }
 .icon{
+    position: relative;
     width: 200px;
     height: 70px;
+    top:10px;
+    left: 90px;
 }
-.logo{
-    color: rgb(0, 0, 0);
-    font-size: 35px;
-    font-family: Arial;
-    padding-left: 20px;
-    float: left;
-    padding-top: 10px;
+.logo-img{
+    width: 60px;
+    height: 50px;
 }
 
 .menu{
