@@ -4,9 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manga4u</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
-  </head>
-
   <body>
     <div class="navbar">
       <div class="icon">
@@ -15,12 +17,24 @@
 
       <div class="menu">
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Manga List</a></li>
-          <li><a href="#">Genre</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Account</a></li>
-          <li><a href="#">Cart</a></li>
+          <li>
+            <a href="#"><i class="fa-solid fa-house"></i> Home</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-book-open"></i> Manga List</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-layer-group"></i> Genre</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-envelope"></i> Contact</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-user"></i> Account</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+          </li>
         </ul>
       </div>
 
@@ -33,33 +47,73 @@
     <div class="slider">
       <div class="slides">
         <div class="slide">
-          <img src="https://raw.githubusercontent.com/Tishar07/MangaWeb/refs/heads/main/Assets/AOT.webp" alt="Attack on Titan" />
-          <div class="caption">Attack On Titan</div>
+          <img
+            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/refs/heads/main/Assets/AOT.webp"
+            alt="Attack on Titan"
+          />
+          <div class="caption">
+            <h3>Attack On Titan</h3>
+            <p>
+              Humanity fights for survival against terrifying titans beyond the
+              walls.
+            </p>
+          </div>
         </div>
 
         <div class="slide">
-          <img src="https://raw.githubusercontent.com/Tishar07/MangaWeb/refs/heads/main/Assets/Bleach.webp" alt="Bleach" />
-          <div class="caption">Bleach</div>
+          <img
+            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/refs/heads/main/Assets/Bleach.webp"
+            alt="Bleach"
+          />
+          <div class="caption">
+            <h3>Bleach</h3>
+            <p>
+              Ichigo Kurosaki becomes a Soul Reaper and protects the living
+              world.
+            </p>
+          </div>
         </div>
 
         <div class="slide">
-          <img src="https://raw.githubusercontent.com/Tishar07/MangaWeb/refs/heads/main/Assets/Chainsawman.webp" alt="Chainsaw Man" />
-          <div class="caption">Chainsaw Man</div>
+          <img
+            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/refs/heads/main/Assets/Chainsawman.webp"
+            alt="Chainsaw Man"
+          />
+          <div class="caption">
+            <h3>Chainsaw Man</h3>
+            <p>
+              Denji merges with his pet devil to hunt monsters and survive a
+              brutal world.
+            </p>
+          </div>
         </div>
 
         <div class="slide">
-          <img src="https://raw.githubusercontent.com/Tishar07/MangaWeb/refs/heads/main/Assets/GrandBlue.webp" alt="Grand Blue" />
-          <div class="caption">Grand Blue</div>
+          <img
+            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/refs/heads/main/Assets/GrandBlue.webp"
+            alt="Grand Blue"
+          />
+          <div class="caption">
+            <h3>Grand Blue</h3>
+            <p>
+              A hilarious story of friendship, diving, and endless mischief by
+              the beach.
+            </p>
+          </div>
         </div>
 
         <div class="slide">
-          <img src="https://raw.githubusercontent.com/Tishar07/MangaWeb/refs/heads/main/Assets/Haikyuu.webp" alt="Haikyuu!!" />
-          <div class="caption">Haikyuu!!</div>
-        </div>
-
-        <div class="slide">
-          <img src="https://raw.githubusercontent.com/Tishar07/MangaWeb/refs/heads/main/Assets/Kakegurui.webp" alt="Kakegurui" />
-          <div class="caption">Kakegurui</div>
+          <img
+            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/refs/heads/main/Assets/Haikyuu.webp"
+            alt="Haikyuu!!"
+          />
+          <div class="caption">
+            <h3>Haikyuu!!</h3>
+            <p>
+              A small but passionate volleyball player Hinata that aims to reach new heights
+              with his team.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -142,15 +196,25 @@
     </div>
 
     <script>
-      let index = 0;
       const slides = document.querySelector(".slides");
-      const total = document.querySelectorAll(".slide").length;
+      const slideCount = document.querySelectorAll(".slide").length;
+      let index = 0;
 
-      setInterval(() => {
-        index = (index + 1) % total;
-        slides.style.transform = `translateX(-${index * 100}%)`;
+      function showNextSlide() {
+        index++;
         slides.style.transition = "transform 1s ease";
-      }, 4000);
+        slides.style.transform = `translateX(-${index * 100}%)`;
+
+        if (index === slideCount) {
+          setTimeout(() => {
+            slides.style.transition = "none";
+            slides.style.transform = "translateX(0)";
+            index = 0;
+          }, 1000);
+        }
+      }
+
+      setInterval(showNextSlide, 4000);
     </script>
   </body>
 </html>
