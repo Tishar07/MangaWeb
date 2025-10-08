@@ -1,35 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manga4u</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="main">
-      <div class="navbar">
-        <div class="icon">
-          <h2 class="logo">Manga4u</h2>
-        </div>
-
-        <div class="menu">
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Popular</a></li>
-            <li><a href="#">Manga List</a></li>
-            <li><a href="#">Categories</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-
-        <div class="search">
-          <input class="srch" type="text" placeholder="Search Manga..." />
-          <button class="btn">Search</button>
-        </div>
-      </div>
-
-      <div class="popular-section">
+</head>
+<body>
+    <div class="popular-section">
         <h2>Popular Manga</h2>
         <div class="manga-container">
           <div class="manga-item">
@@ -105,6 +82,5 @@
           </div>
         </div>
       </div>
-    </div>
-  </body>
+</body>
 </html>
