@@ -1,0 +1,42 @@
+
+.manga-details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px;
+}
+
+.manga-details img {
+  width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.details-text {
+  max-width: 600px;
+}
+
+.details-text h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.details-text p {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.details-text button {
+  background-color: #ff4757;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.details-text button:hover {
+  background-color: #e84118;
+}
