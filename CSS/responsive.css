@@ -1,0 +1,39 @@
+
+@media (max-width: 1200px) {
+  .navbar {
+    flex-wrap: wrap;
+    height: auto;
+    justify-content: center;
+  }
+  .menu ul li {
+    margin-left: 30px;
+  }
+  .search {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: center;
+    margin-left: 0;
+  }
+  .srch, .btn {
+    width: 45%;
+  }
+  .manga-item {
+    width: calc((100vw - 80px) / 2);
+  }
+}
+
+@media (max-width: 768px) {
+  .manga-item {
+    width: calc(100vw - 60px);
+  }
+  .popular-section h2 {
+    font-size: 20px;
+  }
+  .footer-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .footer-section {
+    min-width: 100%;
+  }
+}

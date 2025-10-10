@@ -4,223 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manga4u</title>
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="javascript" href="script.js">
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/slider.css" />
+    <link rel="stylesheet" href="css/sections.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+
   <body>
-    <header>
-    <div class="navbar">
-      <div class="icon">
-        <h2 class="logo">Manga4u</h2>
-      </div>
+    <div id="header"></div>
+    <div id="slider"></div>
+    <div id="popular"></div>
+    <div id="footer"></div>
 
-      <div class="menu">
-        <ul>
-          <li>
-            <a href="#"><i class="fa-solid fa-house"></i> Home</a>
-          </li>
-          <li>
-            <a href="#"><i class="fa-solid fa-book-open"></i> Mangas</a>
-          </li>
-          
-          <li>
-            <a href="#"><i class="fa-solid fa-user"></i> Account</a>
-          </li>
-          <li>
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="search">
-        <input class="srch" type="text" placeholder="Search Manga..." />
-        <button class="btn">Search</button>
-      </div>
-    </div>
-
-    <div class="slider">
-      <div class="slides">
-        <div class="slide">
-          <img
-            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/refs/heads/main/Assets/AOT.webp"
-            alt="Attack on Titan"
-          />
-          <div class="caption">
-            <h3>Attack On Titan</h3>
-            <p>
-              Humanity fights for survival against terrifying titans beyond the
-              walls.
-            </p>
-          </div>
-        </div>
-
-        <div class="slide">
-          <img
-            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/refs/heads/main/Assets/Bleach.webp"
-            alt="Bleach"
-          />
-          <div class="caption">
-            <h3>Bleach</h3>
-            <p>
-              Ichigo Kurosaki becomes a Soul Reaper and protects the living
-              world.
-            </p>
-          </div>
-        </div>
-
-        <div class="slide">
-          <img
-            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/refs/heads/main/Assets/Chainsawman.webp"
-            alt="Chainsaw Man"
-          />
-          <div class="caption">
-            <h3>Chainsaw Man</h3>
-            <p>
-              Denji merges with his pet devil to hunt monsters and survive a
-              brutal world.
-            </p>
-          </div>
-        </div>
-
-        <div class="slide">
-          <img
-            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/refs/heads/main/Assets/GrandBlue.webp"
-            alt="Grand Blue"
-          />
-          <div class="caption">
-            <h3>Grand Blue</h3>
-            <p>
-              A hilarious story of friendship, diving, and endless mischief by
-              the beach.
-            </p>
-          </div>
-        </div>
-
-        <div class="slide">
-          <img
-            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/refs/heads/main/Assets/Haikyuu.webp"
-            alt="Haikyuu!!"
-          />
-          <div class="caption">
-            <h3>Haikyuu!!</h3>
-            <p>
-              A small but passionate volleyball player Hinata that aims to reach new heights
-              with his team.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="popular-section">
-      <h2>Popular Manga</h2>
-      <div class="manga-container">
-        <a href="manga.html" class="manga-link">
-         <div class="manga-item">
-          <img
-            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/main/MangaImages/Attack%20On%20titans.jpg"
-            alt="Manga 1"
-          />
-          <h3>Attack On Titan</h3>
-          <p class="price">Rs 450.00</p>
-         </div>
-        </a>
-
-         <div class="manga-item">
-          <img
-            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/main/MangaImages/Bleach%20Front.webp"
-            alt="Manga 2"
-          />
-          <h3>Bleach</h3>
-          <p class="price">Rs 700.00</p>
-         </div>
-
-         <div class="manga-item">
-          <img
-            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/main/MangaImages/Chainsaw-Man%20Front.webp"
-            alt="Manga 3"
-          />
-          <h3>Chainsaw-Man</h3>
-          <p class="price">Rs 499.99</p>
-         </div>
-
-         <div class="manga-item">
-          <img
-            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/main/MangaImages/Grand%20Blue%20Front.webp"
-            alt="Manga 4"
-          />
-          <h3>Grand Blue</h3>
-          <p class="price">Rs 1300.00</p>
-         </div>
-
-         <div class="manga-item">
-          <img
-            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/main/MangaImages/Onizuka%20Front.webp"
-            alt="Manga 5"
-          />
-          <h3>Great Teacher Onizuka</h3>
-          <p class="price">Rs 399.49</p>
-         </div>
-
-         <div class="manga-item">
-          <img
-            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/main/MangaImages/Haikyu.jpg"
-            alt="Manga 6"
-          />
-          <h3>Haikyu!!</h3>
-          <p class="price">Rs 500.00</p>
-         </div>
-
-         <div class="manga-item">
-          <img
-            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/main/MangaImages/Sakamoto%20days%20Front.jpg"
-            alt="Manga 7"
-          />
-          <h3>Sakamoto Days</h3>
-          <p class="price">Rs 400.00</p>
-         </div>
-
-         <div class="manga-item">
-          <img
-            src="https://raw.githubusercontent.com/Tishar07/MangaWeb/main/MangaImages/kakegurui.jpg"
-            alt="Manga 8"
-          />
-          <h3>Kakegurui</h3>
-          <p class="price">Rs 1500.00</p>
-         </div>
-      </div>
-    </div>
-    </header>
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>Contact Us</h3>
-                <p>Phone: 54520256</p>
-                <p>Email: Manga4u@gmail.com</p>
-            </div>
-    
-            <div class="footer-section">
-                <h3>Follow Us</h3>
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
-                <a href="#">Discord</a>
-                <a href="#">Twitter</a>
-            </div>
-            
-            <div class="footer-section">
-                <h3>About Us</h3>
-                <p>Manga4u is a website that provides a wide range of manga for free. Our mission is to make manga accessible to everyone.</p>
-            </div>    
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2025 Manga4u. All rights reserved.</p>
-        </div>
-    </footer>
-
-
+    <script src="js/main.js" defer></script>
+    <script src="js/slider.js" defer></script>
   </body>
 </html>
