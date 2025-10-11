@@ -1,11 +1,10 @@
 <?php
-$server = "localhost";
-$user = "root";
+$servername = "localhost";
+$username = "root";
 $password = "";
-$dbName = "mangastore";
+$dbname = "mangastore";
 
-$conn = mysqli_connect($server, $user, $password, $dbName);
-
-if (!$conn) {
-    die("Connection Failed" . mysqli_connect_connect());
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }

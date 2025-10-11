@@ -1,21 +1,20 @@
 <?php
-include("db_connect.php");
-session_start();
+include 'db_connect.php';
 
-$sql = "SELECT MangaName, FrontCover FROM manga";
-$result = mysqli_query($conn, $sql);
+$sql = "SELECT * FROM manga";
+$result = $conn->query($sql);
 
-$MangaData = [];
-
-if ($result) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $MangaData[] = [
-            'MangaName' => $row['MangaName'],
-            'FrontCover' => $row['FrontCover']
-        ];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo '
+      <div class="manga-item">
+        <img src="' . htmlspecialchars($row["FrontCover"]) . '" alt="' . htmlspecialchars($row["MangaDescription"]) . '">
+        <p class="price">Rs ' . number_format($row["Price"], 2) . '</p>
+      </div>
+    ';
     }
-
-    $_SESSION['MangaData'] = $MangaData;
 } else {
-    echo "Query failed: " . mysqli_error($conn);
+    echo "<p>No manga found.</p>";
 }
+
+$conn->close();
