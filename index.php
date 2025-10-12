@@ -1,3 +1,12 @@
+<?php
+include("php/db_connect.php");
+session_start();
+if (!isset($_SESSION['UserID'])) {
+    header('Location:Login.php');
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,25 +21,22 @@
   <title>Manga4u</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/navbar.css" />
-  <link rel="stylesheet" href="css/slider.css" />
-  <link rel="stylesheet" href="css/sections.css" />
-  <link rel="stylesheet" href="css/footer.css" />
-  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="CSS/base.css" />
+  <link rel="stylesheet" href="CSS/slider.css" />
+  <link rel="stylesheet" href="CSS/sections.css" />
+  <link rel="stylesheet" href="CSS/responsive.css" />
 </head>
 
 <body>
-  <div id="header"></div>
-  <div id="slider"></div>
+  <?php include("Navbar.php"); ?>
 
+  <div id="slider"></div>
   <section class="popular-section">
-    <h2>Popular Manga</h2>
     <div id="popular" class="manga-container"></div>
   </section>
 
-  <div id="footer"></div>
 
+  <?php include("Footer.php");?>
   <script src="js/main.js" defer></script>
   <script src="js/slider.js" defer></script>
 </body>

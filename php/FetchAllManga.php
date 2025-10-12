@@ -1,20 +1,37 @@
-<?php
-include 'db_connect.php';
+<?php 
+include("db_connect.php"); 
+session_start();
 
-$sql = "SELECT * FROM manga";
-$result = $conn->query($sql);
+$sql = "SELECT m.MangaID, m.MangaName, m.FrontCover, m.MangaDescription, m.Price, g.GenreName
+        FROM (
+            SELECT * FROM Manga LIMIT 0,6
+        ) AS m
+        JOIN Manga_Genre x ON m.MangaID = x.MangaID
+        JOIN Genre g ON x.GenreID = g.GenreID";
+$result = mysqli_query($conn, $sql);
 
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        echo '
-      <div class="manga-item">
-        <img src="' . htmlspecialchars($row["FrontCover"]) . '" alt="' . htmlspecialchars($row["MangaDescription"]) . '">
-        <p class="price">Rs ' . number_format($row["Price"], 2) . '</p>
-      </div>
-    ';
+$MangaData = []; 
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $id = $row['MangaID'];
+    $MangaName = $row['MangaName'];
+    $genre = $row['GenreName'];
+    $FrontCover = $row['FrontCover'];
+    $MangaDescription = $row['MangaDescription'];
+    $Price = $row ['Price'];
+    if (!isset($MangaData[$id])) {
+        $MangaData[$id] = [
+            'MangaID' => $id,
+            'MangaName' => $MangaName,
+            'FrontCover'=> $FrontCover,
+            'MangaDescription'=> $MangaDescription,
+            'Price' => $Price,
+            'Genres' => []
+        ];
     }
-} else {
-    echo "<p>No manga found.</p>";
+    $MangaData[$id]['Genres'][] = $genre;
 }
+$_SESSION['MangaData'] = $MangaData;
 
-$conn->close();
+?>
+
