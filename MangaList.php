@@ -26,7 +26,7 @@ include("php/FetchAllManga.php");
             <h2 >ALL Manga</h2>
         </div>
 
-        <div class ="Filter-container" id ="filters">
+        <div class ="Filter-container" id ="Sorting">
             <div class ="Drop-Down-Filter">
                 <select name="DropDown" id="SortingFilter" >
                     <option value="" disabled="" selected="" class="DropText">Sort By</option>
@@ -35,6 +35,23 @@ include("php/FetchAllManga.php");
                     <option value="Ascending Alphabetics">Ascending Alphabetics</option>
                     <option value="Descending Alphabetics">Descending Alphabetics</option>
                 </select>
+            </div>
+
+
+            <div class="checkbox-container">
+                <?php
+                $sql = "SELECT GenreName FROM Genre" ;
+                $result= mysqli_query($conn,$sql);
+                if($result){
+                    while($row=mysqli_fetch_assoc($result)){
+                        $genre = $row['GenreName'];
+                        if (!empty($genre)){
+                        echo '<input type="checkbox" id="'.$genre.'" name="Genres" value="'.$genre.'">
+                              <label for="genre_'.$genre.'">'.$genre.'</label><br>';                            
+                        }
+                    }
+                }
+                ?>
             </div>
         </div>
     
@@ -75,18 +92,29 @@ include("php/FetchAllManga.php");
     </div>
     <?php include("Footer.php");?>
 
-    <script>
-        $(document).ready(function()){
-            $("#DropDown").on('change',function(){
-                var value = $(this).val();
-                alert (value);
-            };)
-        };
-        
+<script>
+    $(document).ready(function() {
+        $("#SortingFilter").on('change', function() {
+            var value = $(this).val();
+            //alert(value);
 
+            $.ajax({
+                url: "MangaList.php",
+                type:"POST",
+                data: 'request='+value;
+                beforeSend:function(){
+                    $(".manga-container").html("<span>Working....</span>");
+                    success:function(){
+                        $(".manga-container").html(data);
 
+                        
+                    }
+                }
+            });
+        });
+    });
+</script>
 
-    </script>
 
 
 
