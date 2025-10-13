@@ -1,15 +1,26 @@
-$(document).ready(function () {
+$(document).ready(function() {
+  $.ajax({
+    url: "php/FetchAllManga.php",
+    method: "GET",
+    dataType: "json",
+    success: function(data) {
+      const container = $("#popular");
+      container.empty();
 
-  $("#header").load("html/header.html");
-  $("#footer").load("html/footer.html");
-
-  
-  $("#slider").load("html/slider.html", function () {
-    initSlider(); 
+      data.forEach(manga => {
+        const genreList = manga.Genres.join(", ");
+        const mangaCard = `
+          <div class="manga-card">
+            <img src="${manga.FrontCover}" alt="${manga.MangaName}" class="manga-cover">
+            <h3 class="manga-title">${manga.MangaName}</h3>
+            <p class="manga-price">₨ ${manga.Price}</p>
+          </div>
+        `;
+        container.append(mangaCard);
+      });
+    },
+    error: function(xhr, status, error) {
+      console.error("Error fetching manga:", error);
+    }
   });
-
-
-  $("#popular").load("html/popular.html");
-
-  
 });
