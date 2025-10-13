@@ -33,7 +33,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 
 <body>
   <section class="popular-section">
-    <h2 class="section-title">Popular</h2>
+    <h2 class="section-title">Popular Manga</h2>
     <div id="popular" class="manga-container">
       <?php if (!empty($mangaList)): ?>
         <?php foreach ($mangaList as $manga): ?>
