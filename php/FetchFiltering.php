@@ -1,7 +1,6 @@
 <?php
 include("db_connect.php");
 
-
 $sqlBase = "
     SELECT m.MangaID, m.MangaName, m.MangaDescription, m.FrontCover, m.Price,
            GROUP_CONCAT(DISTINCT g.GenreName SEPARATOR ', ') AS Genres
@@ -11,18 +10,26 @@ $sqlBase = "
 ";
 
 
-if (isset($_POST['genres']) && !empty($_POST['genres'])) {
-    $genres = $_POST['genres'];
+$selectedGenres = $_POST['genres'] ?? [];
+
+if (!empty($selectedGenres)) {
+ 
     $escapedGenres = array_map(function($g) use ($conn) {
         return "'" . mysqli_real_escape_string($conn, $g) . "'";
-    }, $genres);
-    $genreList = implode(",", $escapedGenres);
-    $sqlBase .= " WHERE g.GenreName IN ($genreList)";
+    }, $selectedGenres);
+
+    $genreList = implode(',', $escapedGenres);
+    $numSelected = count($selectedGenres);
+
+    $sqlBase .= " WHERE g.GenreName IN ($genreList)
+                  GROUP BY m.MangaID
+                  HAVING COUNT(DISTINCT g.GenreName) = $numSelected";
+} else {
+    
+    $sqlBase .= " GROUP BY m.MangaID";
 }
 
-$sqlBase .= " GROUP BY m.MangaID";
 
-// Sorting options
 if (isset($_POST['sort']) && !empty($_POST['sort'])) {
     $sort = $_POST['sort'];
     switch ($sort) {
@@ -46,12 +53,30 @@ if (isset($_POST['sort']) && !empty($_POST['sort'])) {
 
 $result = mysqli_query($conn, $sqlBase);
 
+
+
 if ($result && mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
+
+        $genresql = "SELECT g.GenreName
+                     FROM Manga m
+                     JOIN Manga_Genre x ON m.MangaID = x.MangaID
+                     JOIN Genre g ON x.GenreID = g.GenreID
+                     WHERE m.MangaID = {$row['MangaID']}";
+
+        $genreResult = mysqli_query($conn, $genresql);
+        $GenresArr = [];
+        if ($genreResult) {
+            while ($g = mysqli_fetch_assoc($genreResult)) {
+                $GenresArr[] = $g['GenreName'];
+            }
+        }
+        $GenresStr = implode(', ', $GenresArr);
+
         echo '<div class="manga-card">
                 <p>' . htmlspecialchars($row['MangaName']) . '</p>
                 <img src="' . htmlspecialchars($row['FrontCover']) . '" alt="Manga Cover">
-                <h3 class="Genre">' . htmlspecialchars($row['Genres']) . '</h3>
+                <h3 class="Genre">' . htmlspecialchars($GenresStr) . '</h3>
                 <h4 class="Description">' . htmlspecialchars($row['MangaDescription']) . '</h4>
                 <h3 class="Price">Rs ' . htmlspecialchars($row['Price']) . '</h3>
               </div>';

@@ -95,7 +95,7 @@ include("php/FetchAllManga.php");
 <script>
 $(document).ready(function() {
 
-    // Function to fetch manga (used for both genre + sorting)
+    
     function fetchManga() {
         var selectedGenres = [];
         $("input[name='Genres']:checked").each(function() {
@@ -121,7 +121,7 @@ $(document).ready(function() {
         });
     }
 
-    // Trigger AJAX when checkboxes or dropdown change
+    
     $("input[name='Genres']").on('change', fetchManga);
     $("#SortingFilter").on('change', fetchManga);
 });
