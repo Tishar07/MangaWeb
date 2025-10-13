@@ -1,29 +1,34 @@
-<?php
-
-
+<?php 
 $sql = "SELECT m.MangaID, m.MangaName, m.FrontCover, m.MangaDescription, m.Price, g.GenreName
-        FROM Manga m
+        FROM (
+            SELECT * FROM Manga LIMIT 0,6
+        ) AS m
         JOIN Manga_Genre x ON m.MangaID = x.MangaID
-        JOIN Genre g ON x.GenreID = g.GenreID
-        LIMIT 6";
-
+        JOIN Genre g ON x.GenreID = g.GenreID";
 $result = mysqli_query($conn, $sql);
 
-$MangaData = [];
+$MangaData = []; 
 
 while ($row = mysqli_fetch_assoc($result)) {
     $id = $row['MangaID'];
+    $MangaName = $row['MangaName'];
+    $genre = $row['GenreName'];
+    $FrontCover = $row['FrontCover'];
+    $MangaDescription = $row['MangaDescription'];
+    $Price = $row ['Price'];
     if (!isset($MangaData[$id])) {
         $MangaData[$id] = [
             'MangaID' => $id,
-            'MangaName' => $row['MangaName'],
-            'FrontCover' => $row['FrontCover'],
-            'MangaDescription' => $row['MangaDescription'],
-            'Price' => $row['Price'],
+            'MangaName' => $MangaName,
+            'FrontCover'=> $FrontCover,
+            'MangaDescription'=> $MangaDescription,
+            'Price' => $Price,
             'Genres' => []
         ];
     }
-    $MangaData[$id]['Genres'][] = $row['GenreName'];
+    $MangaData[$id]['Genres'][] = $genre;
 }
+$_SESSION['MangaData'] = $MangaData;
 
-echo json_encode(array_values($MangaData));
+?>
+
