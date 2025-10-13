@@ -42,6 +42,14 @@ if (!isset($_SESSION['UserID'])) {
     <?php include("php/PopularHome.php"); ?>
   </section>
 
+  <section class="ranking-section">
+    <?php include("RankingHome.php"); ?>
+  </section>
+
+  <section class="promotion-section">
+    <?php include("promotion.php"); ?>
+  </section>
+
   <?php include("Footer.php"); ?>
 </body>
 

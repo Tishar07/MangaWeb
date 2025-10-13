@@ -1,0 +1,39 @@
+.promotion-container {
+  background-color: #000;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.promotion-banner {
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+  animation: slideFade 1.5s ease-in-out;
+}
+
+.promo-img {
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  aspect-ratio: 16 / 6;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.promo-img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes slideFade {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

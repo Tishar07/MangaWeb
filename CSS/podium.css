@@ -1,0 +1,101 @@
+.ranking-container {
+  background-color: #000;
+  color: #fff;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.ranking-title {
+  font-size: 28px;
+  margin-bottom: 50px;
+  font-weight: bold;
+}
+
+.podium-layout {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.podium-card {
+  width: 260px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #111;
+  box-shadow: 0 0 20px rgba(255,255,255,0.1);
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.podium-card:hover {
+  transform: translateY(-10px);
+}
+
+.cover-frame {
+  border: 6px solid transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.cover-img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.rank-badge {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  background-color: #222;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 50px;
+  box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.manga-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.genre-tags {
+  margin-top: 10px;
+}
+
+.genre-badge {
+  display: inline-block;
+  background-color: #444;
+  color: #fff;
+  padding: 5px 10px;
+  margin: 3px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+
+.first {
+  transform: translateY(-30px);
+  z-index: 2;
+}
+
+.first .cover-frame {
+  border-color: gold;
+  box-shadow: 0 0 25px gold;
+}
+
+.second .cover-frame {
+  border-color: silver;
+  box-shadow: 0 0 15px silver;
+}
+
+.third .cover-frame {
+  border-color: #cd7f32;
+  box-shadow: 0 0 15px #cd7f32;
+}
