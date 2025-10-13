@@ -1,86 +1,53 @@
+<?php
+include("php/db_connect.php");
+
+
+$query = "SELECT * FROM manga";
+$result = mysqli_query($conn, $query);
+
+$mangaList = [];
+if ($result && mysqli_num_rows($result) > 0) {
+  while ($row = mysqli_fetch_assoc($result)) {
+    $genres = isset($row['Genres']) ? json_decode($row['Genres'], true) : [];
+    if (!is_array($genres)) {
+      $genres = explode(',', $row['Genres']);
+    }
+
+    $mangaList[] = [
+      'MangaName' => $row['MangaName'],
+      'Price' => $row['Price'],
+      'FrontCover' => $row['FrontCover'],
+      'Genres' => $genres
+    ];
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manga4u</title>
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manga4u</title>
+  <link rel="stylesheet" href="CSS/sections.css" />
+
 <body>
-    <div class="popular-section">
-        <h2>Popular Manga</h2>
-        <div class="manga-container">
-          <div class="manga-item">
-            <img
-              src="https://raw.githubusercontent.com/Tishar07/MangaWeb/main/MangaImages/Attack%20On%20titans.jpg"
-              alt="Manga 1"
-            />
-            <h3>Attack On Titan</h3>
-            <p class="price">Rs 900.00</p>
+  <section class="popular-section">
+    <h2 class="section-title">Popular Manga</h2>
+    <div id="popular" class="manga-container">
+      <?php if (!empty($mangaList)): ?>
+        <?php foreach ($mangaList as $manga): ?>
+          <div class="manga-card">
+            <img src="<?= htmlspecialchars($manga['FrontCover']) ?>" alt="<?= htmlspecialchars($manga['MangaName']) ?>" class="manga-cover">
+            <h3 class="manga-title"><?= htmlspecialchars($manga['MangaName']) ?></h3>
+            <p class="manga-price">₨ <?= htmlspecialchars($manga['Price']) ?></p>
           </div>
-
-          <div class="manga-item">
-            <img
-              src="https://raw.githubusercontent.com/Tishar07/MangaWeb/main/MangaImages/Bleach%20Front.webp"
-              alt="Manga 2"
-            />
-            <h3>Bleach</h3>
-            <p class="price">Rs 700.00</p>
-          </div>
-
-          <div class="manga-item">
-            <img
-              src="https://raw.githubusercontent.com/Tishar07/MangaWeb/main/MangaImages/Chainsaw-Man%20Front.webp"
-              alt="Manga 3"
-            />
-            <h3>Chainsaw-Man</h3>
-            <p class="price">Rs 499.99</p>
-          </div>
-
-          <div class="manga-item">
-            <img
-              src="https://raw.githubusercontent.com/Tishar07/MangaWeb/main/MangaImages/Grand%20Blue%20Front.webp"
-              alt="Manga 4"
-            />
-            <h3>Grand Blue</h3>
-            <p class="price">Rs 1300.00</p>
-          </div>
-
-          <div class="manga-item">
-            <img
-              src="https://raw.githubusercontent.com/Tishar07/MangaWeb/main/MangaImages/Onizuka%20Front.webp"
-              alt="Manga 5"
-            />
-            <h3>Great Teacher Onizuka</h3>
-            <p class="price">Rs 399.49</p>
-          </div>
-
-          <div class="manga-item">
-            <img
-              src="https://raw.githubusercontent.com/Tishar07/MangaWeb/main/MangaImages/Haikyu.jpg"
-              alt="Manga 6"
-            />
-            <h3>Haikyu!!</h3>
-            <p class="price">Rs 500.00</p>
-          </div>
-
-          <div class="manga-item">
-            <img
-              src="https://raw.githubusercontent.com/Tishar07/MangaWeb/main/MangaImages/Sakamoto%20days%20Front.jpg"
-              alt="Manga 7"
-            />
-            <h3>Sakamoto Days</h3>
-            <p class="price">Rs 400.00</p>
-          </div>
-
-          <div class="manga-item">
-            <img
-              src="https://raw.githubusercontent.com/Tishar07/MangaWeb/main/MangaImages/kakegurui.jpg"
-              alt="Manga 8"
-            />
-            <h3>Kakegurui</h3>
-            <p class="price">Rs 1500.00</p>
-          </div>
-        </div>
-      </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <p>No manga available at the moment.</p>
+      <?php endif; ?>
+    </div>
+  </section>
 </body>
+
 </html>
