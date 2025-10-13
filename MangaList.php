@@ -29,7 +29,7 @@ include("php/FetchAllManga.php");
         <div class ="Filter-container" id ="Sorting">
             <div class ="Drop-Down-Filter">
                 <select name="DropDown" id="SortingFilter" >
-                    <option value="" disabled="" selected="" class="DropText">Sort By</option>
+                    <option value="Default" selected="" class="DropText">Sort By</option>
                     <option value="Ascending Price">Ascending Price</option>
                     <option value="Descending Price">Descending Price</option>
                     <option value="Ascending Alphabetics">Ascending Alphabetics</option>
@@ -93,27 +93,41 @@ include("php/FetchAllManga.php");
     <?php include("Footer.php");?>
 
 <script>
-    $(document).ready(function() {
-        $("#SortingFilter").on('change', function() {
-            var value = $(this).val();
-            //alert(value);
+$(document).ready(function() {
 
-            $.ajax({
-                url: "MangaList.php",
-                type:"POST",
-                data: 'request='+value;
-                beforeSend:function(){
-                    $(".manga-container").html("<span>Working....</span>");
-                    success:function(){
-                        $(".manga-container").html(data);
-
-                        
-                    }
-                }
-            });
+    
+    function fetchManga() {
+        var selectedGenres = [];
+        $("input[name='Genres']:checked").each(function() {
+            selectedGenres.push($(this).val());
         });
-    });
+
+        var sortOption = $("#SortingFilter").val();
+
+        $.ajax({
+            url: "php/FetchFiltering.php",
+            type: "POST",
+            data: { genres: selectedGenres, sort: sortOption },
+            beforeSend: function() {
+                $(".manga-container").html("<span>Loading...</span>");
+            },
+            success: function(response) {
+                $(".manga-container").html(response);
+            },
+            error: function(xhr, status, error) {
+                $(".manga-container").html("<p>Error loading manga.</p>");
+                console.log("AJAX Error:", error);
+            }
+        });
+    }
+
+    
+    $("input[name='Genres']").on('change', fetchManga);
+    $("#SortingFilter").on('change', fetchManga);
+});
+
 </script>
+
 
 
 
