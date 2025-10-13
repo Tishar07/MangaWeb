@@ -1,6 +1,5 @@
 <?php
 include("php/db_connect.php");
-session_start();
 if (!isset($_SESSION['UserID'])) {
     header('Location:Login.php');
     exit();
@@ -21,10 +20,10 @@ if (!isset($_SESSION['UserID'])) {
   <title>Manga4u</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-  <link rel="stylesheet" href="CSS/base.css" />
-  <link rel="stylesheet" href="CSS/slider.css" />
-  <link rel="stylesheet" href="CSS/sections.css" />
-  <link rel="stylesheet" href="CSS/responsive.css" />
+  <link rel="stylesheet" href="CSS/base.css"/>
+  <link rel="stylesheet" href="CSS/slider.css"/>
+  <link rel="stylesheet" href="CSS/sections.css"/>
+  <link rel="stylesheet" href="CSS/responsive.css"/>
 </head>
 
 <body>
@@ -34,7 +33,6 @@ if (!isset($_SESSION['UserID'])) {
   <section class="popular-section">
     <div id="popular" class="manga-container"></div>
   </section>
-
 
   <?php include("Footer.php");?>
   <script src="js/main.js" defer></script>

@@ -1,8 +1,7 @@
 <?php
 include("php/db_connect.php");
-session_start();
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,23 +64,34 @@ if (isset($_POST['register'])){
     $ContactNumber = $_POST['ContactNumber'];
     $Street = $_POST['Street'];
     $City = $_POST['City'];
-    
     $password = $_POST['password'];
     
+    // Insert user into Users table
     $secureQ = $conn->prepare("
-    INSERT INTO Users (FirstName, LastName, Email, ContactNumber, Street, City, Password) 
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO Users (FirstName, LastName, Email, ContactNumber, Street, City, Password) 
+        VALUES (?, ?, ?, ?, ?, ?, ?)
     ");
     $secureQ->bind_param('sssssss', $Fname, $Lname, $Email, $ContactNumber, $Street, $City, $password);
-    if ($secureQ ->execute()) {
+    
+    if ($secureQ->execute()) {
+        // Get the last inserted user ID
+        $userID = $conn->insert_id;
+
+        // Insert a cart for the new user
+        $cartQ = $conn->prepare("INSERT INTO cart (UserID) VALUES (?)");
+        $cartQ->bind_param('i', $userID);
+        $cartQ->execute();
+        $cartQ->close();
+
         echo "User registered successfully!";
         header("Location: Login.php");
         exit();
     } else {
-        echo "Error: " . $secureQ ->error;
+        echo "Error: " . $secureQ->error;
     }
-    $secureQ-> close();
+    $secureQ->close();
 }
+
 
 
 

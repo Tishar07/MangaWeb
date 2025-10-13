@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("php/db_connect.php");
 ?>
 
@@ -41,12 +40,18 @@ if (isset($_POST['GoRegister'])){
 if (isset($_POST['login'])){
     $Email = $_POST["Email"];
     $Password = $_POST["password"];
+
+
     $secureQ = $conn -> prepare ("SELECT UserID,password
             FROM users
             WHERE Email = ? ");
+
+
     $secureQ -> bind_param("s",$Email);
     $secureQ -> execute();
     $result = $secureQ -> get_result();
+
+    
     if ($row=mysqli_num_rows($result)===1){
         $row = $result -> fetch_assoc();
         if($Password === $row['password']){
@@ -55,7 +60,6 @@ if (isset($_POST['login'])){
             header("Location:index.php");
             exit;
         }
-
     }else{
         echo "Password or Email Invalid";
     }

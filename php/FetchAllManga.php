@@ -1,7 +1,4 @@
 <?php 
-include("db_connect.php"); 
-session_start();
-
 $sql = "SELECT m.MangaID, m.MangaName, m.FrontCover, m.MangaDescription, m.Price, g.GenreName
         FROM (
             SELECT * FROM Manga LIMIT 0,6

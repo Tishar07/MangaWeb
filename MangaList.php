@@ -1,13 +1,21 @@
 <?php
-
+include("php/db_connect.php");
 include("php/FetchAllManga.php");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manga4U</title>
+    
+    <script
+    src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="CSS/MangaList.css">
     <link rel="stylesheet" href="Style/base.css">
 </head>
@@ -18,14 +26,14 @@ include("php/FetchAllManga.php");
             <h2 >ALL Manga</h2>
         </div>
 
-        <div class ="Filter-container">
+        <div class ="Filter-container" id ="filters">
             <div class ="Drop-Down-Filter">
-                <select id="SortingFilter" name="DropDown">
-                    <option value="" class="DropText">Sort By</option>
-                    <option value="">Ascending Price</option>
-                    <option value="">Descending Price</option>
-                    <option value="">Ascending Alphabetics</option>
-                    <option value="">Descending Alphabetics</option>
+                <select name="DropDown" id="SortingFilter" >
+                    <option value="" disabled="" selected="" class="DropText">Sort By</option>
+                    <option value="Ascending Price">Ascending Price</option>
+                    <option value="Descending Price">Descending Price</option>
+                    <option value="Ascending Alphabetics">Ascending Alphabetics</option>
+                    <option value="Descending Alphabetics">Descending Alphabetics</option>
                 </select>
             </div>
         </div>
@@ -66,5 +74,21 @@ include("php/FetchAllManga.php");
         </div>
     </div>
     <?php include("Footer.php");?>
+
+    <script>
+        $(document).ready(function()){
+            $("#DropDown").on('change',function(){
+                var value = $(this).val();
+                alert (value);
+            };)
+        };
+        
+
+
+
+    </script>
+
+
+
 </body>
 </html>
