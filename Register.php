@@ -42,22 +42,79 @@ include("php/db_connect.php");
             <input type="password" name ="password"><br>
 
             <div class="BtnLog">
-                <button type ="submit" name = "GoBack"  style="background-color: rgb(0, 0, 0);">Go Back</button>
+                <button type="button" id="goBackBtn" style="background-color: rgb(0, 0, 0);">Go Back</button>
                 <Button type = "submit" name="register">Register</Button>
             </div>
         </form>
     </div>
 
 </body>
-</html>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector("form"); 
+
+    const fields = [
+        { id: "FirstName", name: "First Name" },
+        { id: "LastName", name: "Last Name" },
+        { id: "ContactNumber", name: "Contact Number" },
+        { id: "City", name: "City" },
+        { id: "Street", name: "Street" },
+        { id: "Email", name: "Email" },
+        { id: "password", name: "Password" }
+    ];
+
+
+    fields.forEach(field => {
+        const input = form.querySelector(`input[name="${field.id}"]`);
+        if (input) {
+            const error = document.createElement("span");
+            error.className = "error-message";
+            error.style.color = "red";
+            error.style.fontSize = "0.9em";
+            input.parentNode.insertBefore(error, input.nextSibling); 
+            field.error = error;
+        }
+    });
+
+
+    form.addEventListener("submit", function(e) {
+        let hasError = false;
+
+        fields.forEach(field => {
+            const input = form.querySelector(`input[name="${field.id}"]`);
+            field.error.textContent = "";
+            if (input.value.trim() === "") {
+                field.error.textContent = `${field.name} cannot be empty`;
+                input.style.border = "2px solid red";
+                hasError = true;
+            } else {
+                input.style.border = "";
+            }
+        });
+
+        if (hasError) e.preventDefault();
+    });
+
+    
+    fields.forEach(field => {
+        const input = form.querySelector(`input[name="${field.id}"]`);
+        input.addEventListener("input", () => {
+            field.error.textContent = "";
+            input.style.border = "";
+        });
+    });
+});
+
+document.getElementById("goBackBtn").addEventListener("click", function() {
+    window.location.href = "Login.php";
+});
+</script>
+
 
 
 <?php
 
-if (isset($_POST['GoBack'])){
-    header("Location: Login.php");
-    exit();
-}
+
 
 if (isset($_POST['register'])){
     $Fname = $_POST['FirstName'];

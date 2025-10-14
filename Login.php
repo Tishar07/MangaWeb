@@ -18,18 +18,19 @@ include("php/db_connect.php");
     <div class="form-container" id="login-form-container">
         <p>Login</p>
         <form id="login-form" action="Login.php" method="POST">
-            <div class="form-group">
+            
                 <label for="email">Email</label>
                 <input type="text" id="email" name="Email" placeholder="Enter your email">
-            </div>
-            <div class="form-group">
+            
+            
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password">
-            </div>
+        
             <div class="BtnLog">
-                <button type="submit" id="register-btn" name="GoRegister">Register</button>
+                <button type="button" id="register-btn" name="GoRegister">Register</button>
                 <button type="submit" id="login-btn" name="login">Login</button>
             </div>
+
         </form>
     </div>
 
@@ -41,83 +42,82 @@ document.addEventListener("DOMContentLoaded", function() {
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
 
-    // Create error message spans
-    const emailError = document.createElement("span");
-    emailError.className = "error-message";
-    emailError.style.color = "red";
-    emailError.style.fontSize = "0.9em";
-    emailInput.parentNode.appendChild(emailError);
+    function createErrorSpan(input) {
+        const error = document.createElement("span");
+        error.className = "error-message";
+        error.style.color = "red";
+        error.style.fontSize = "0.9em";
+        input.parentNode.appendChild(error);
+        return error;
+    }
 
-    const passwordError = document.createElement("span");
-    passwordError.className = "error-message";
-    passwordError.style.color = "red";
-    passwordError.style.fontSize = "0.9em";
-    passwordInput.parentNode.appendChild(passwordError);
+    
+    const emailError = createErrorSpan(emailInput);
+    const passwordError = createErrorSpan(passwordInput);
 
     form.addEventListener("submit", function(e) {
         let hasError = false;
 
-        // Clear previous errors
+    
         emailError.textContent = "";
         passwordError.textContent = "";
 
-        // Check email
+        
         if (emailInput.value.trim() === "") {
             emailError.textContent = "Email cannot be empty";
             hasError = true;
         }
 
-        // Check password
+       
         if (passwordInput.value.trim() === "") {
             passwordError.textContent = "Password cannot be empty";
             hasError = true;
         }
 
-        // Prevent form submission if errors exist
+        
         if (hasError) {
             e.preventDefault();
         }
     });
-
-    // Remove error on input
+    
     emailInput.addEventListener("input", () => emailError.textContent = "");
     passwordInput.addEventListener("input", () => passwordError.textContent = "");
+
+});
+
+
+document.getElementById("register-btn").addEventListener("click", function() {
+    window.location.href = "Register.php";
 });
 </script>
 </html>
 
 
+
+
 <?php
-if (isset($_POST['GoRegister'])){
-    header("Location:Register.php");
-}
 
+    if (isset($_POST['login'])){
+        $Email = $_POST["Email"];
+        $Password = $_POST["password"];
 
-if (isset($_POST['login'])){
-    $Email = $_POST["Email"];
-    $Password = $_POST["password"];
+        $secureQ = $conn->prepare("SELECT UserID, password FROM users WHERE Email = ?");
+        $secureQ->bind_param("s", $Email);
+        $secureQ->execute();
+        $result = $secureQ->get_result();
 
-
-    $secureQ = $conn -> prepare ("SELECT UserID,password
-            FROM users
-            WHERE Email = ? ");
-
-
-    $secureQ -> bind_param("s",$Email);
-    $secureQ -> execute();
-    $result = $secureQ -> get_result();
-
-    
-    if ($row=mysqli_num_rows($result)===1){
-        $row = $result -> fetch_assoc();
-        if($Password === $row['password']){
-            session_start();
-            $_SESSION['UserID'] = $row ['UserID']; 
-            header("Location:index.php");
-            exit;
+        if (mysqli_num_rows($result) === 1){
+            $row = $result->fetch_assoc();
+            if($Password === $row['password']){
+                session_start();
+                $_SESSION['UserID'] = $row['UserID'];
+                header("Location:index.php");
+                exit;
+            } else {
+                echo "<script>alert('Password or Email Invalid');</script>";
+            }
+        } else {
+            echo "<script>alert('Password or Email Invalid');</script>";
         }
-    }else{
-        echo "Password or Email Invalid";
     }
-}
 ?>
