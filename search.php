@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="icon" href="Assets/favicon.png" type="image/x-icon">
+</head>
+</html>
+
 <?php
 include("php/db_connect.php");
 
@@ -13,11 +23,15 @@ if (isset($_GET['query'])) {
             GROUP BY m.MangaID";
 
     $result = mysqli_query($conn, $sql);
+    include('Navbar.php');
+    echo'<div Style=padding:30px;> </div>';
+    
     echo "<div class='search-results'>";
     echo "<h2>Search Results for: " . htmlspecialchars($search) . "</h2>";
 
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
+            
             echo "<div class='manga-card'>";
             echo "  <img src='" . htmlspecialchars($row['FrontCover']) . "' alt='" . htmlspecialchars($row['MangaName']) . "' class='cover-img'>";
             echo "  <h3 class='manga-title'>" . htmlspecialchars($row['MangaName']) . "</h3>";
@@ -31,5 +45,6 @@ if (isset($_GET['query'])) {
     }
     echo "</div>";
 }
+    include("Footer.php");
 ?>
 <link rel="stylesheet" href="CSS/search.css" />

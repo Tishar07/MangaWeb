@@ -9,7 +9,9 @@ include("php/db_connect.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/FormLog.css">
     <link rel="stylesheet" href="CSS/base.css">
-    <title>LogIn</title>
+    <title>Register</title>
+    <link rel="icon" href="Assets/favicon.png" type="image/x-icon">
+  
 </head>
 <body>
     
@@ -66,7 +68,7 @@ if (isset($_POST['register'])){
     $City = $_POST['City'];
     $password = $_POST['password'];
     
-    // Insert user into Users table
+    
     $secureQ = $conn->prepare("
         INSERT INTO Users (FirstName, LastName, Email, ContactNumber, Street, City, Password) 
         VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -74,10 +76,10 @@ if (isset($_POST['register'])){
     $secureQ->bind_param('sssssss', $Fname, $Lname, $Email, $ContactNumber, $Street, $City, $password);
     
     if ($secureQ->execute()) {
-        // Get the last inserted user ID
+        
         $userID = $conn->insert_id;
 
-        // Insert a cart for the new user
+        
         $cartQ = $conn->prepare("INSERT INTO cart (UserID) VALUES (?)");
         $cartQ->bind_param('i', $userID);
         $cartQ->execute();

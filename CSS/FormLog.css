@@ -76,3 +76,11 @@ form input {
 }
 
 
+.error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
+    .form-container input.error-border {
+      border: 1px solid red;
+    }
