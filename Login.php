@@ -36,8 +36,53 @@ include("php/db_connect.php");
 
 </body>
 <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("login-form");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
 
+    // Create error message spans
+    const emailError = document.createElement("span");
+    emailError.className = "error-message";
+    emailError.style.color = "red";
+    emailError.style.fontSize = "0.9em";
+    emailInput.parentNode.appendChild(emailError);
 
+    const passwordError = document.createElement("span");
+    passwordError.className = "error-message";
+    passwordError.style.color = "red";
+    passwordError.style.fontSize = "0.9em";
+    passwordInput.parentNode.appendChild(passwordError);
+
+    form.addEventListener("submit", function(e) {
+        let hasError = false;
+
+        // Clear previous errors
+        emailError.textContent = "";
+        passwordError.textContent = "";
+
+        // Check email
+        if (emailInput.value.trim() === "") {
+            emailError.textContent = "Email cannot be empty";
+            hasError = true;
+        }
+
+        // Check password
+        if (passwordInput.value.trim() === "") {
+            passwordError.textContent = "Password cannot be empty";
+            hasError = true;
+        }
+
+        // Prevent form submission if errors exist
+        if (hasError) {
+            e.preventDefault();
+        }
+    });
+
+    // Remove error on input
+    emailInput.addEventListener("input", () => emailError.textContent = "");
+    passwordInput.addEventListener("input", () => passwordError.textContent = "");
+});
 </script>
 </html>
 
