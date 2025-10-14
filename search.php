@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="icon" href="Assets/favicon.png" type="image/x-icon">
+</head>
+</html>
+
 <?php
 include("php/db_connect.php");
 
@@ -14,6 +24,8 @@ if (isset($_GET['query'])) {
 
     $result = mysqli_query($conn, $sql);
     include('Navbar.php');
+    echo'<div Style=padding:30px;> </div>';
+    
     echo "<div class='search-results'>";
     echo "<h2>Search Results for: " . htmlspecialchars($search) . "</h2>";
 

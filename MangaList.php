@@ -8,7 +8,9 @@ include("php/FetchAllManga.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manga4U</title>
+    <title>Manga List</title>
+    <link rel="icon" href="Assets/favicon.png" type="image/x-icon">
+  
     
     <script
     src="https://code.jquery.com/jquery-3.7.1.min.js"

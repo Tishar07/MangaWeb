@@ -10,24 +10,35 @@ include("php/db_connect.php");
     <link rel="stylesheet" href="css/FormLog.css">
     <link rel="stylesheet" href="CSS/base.css">
     <title>LogIn</title>
+    <link rel="icon" href="Assets/favicon.png" type="image/x-icon">
+  
 </head>
 <body>
     
-    <div class="form-container">
-        <p>Login</p><br>
-        <form action="Login.php" method ="POST">
-            <label for="Email">Email </label>
-            <input type="text" name ="Email"><br>
-            <label for="password">Password</label>
-            <input type="password" name ="password"><br>
+    <div class="form-container" id="login-form-container">
+        <p>Login</p>
+        <form id="login-form" action="Login.php" method="POST">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="Email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password">
+            </div>
             <div class="BtnLog">
-                <Button type = "submit" name="GoRegister">Register</Button>
-                <button type ="submit" name = "login">Login</button>
+                <button type="submit" id="register-btn" name="GoRegister">Register</button>
+                <button type="submit" id="login-btn" name="login">Login</button>
             </div>
         </form>
     </div>
 
+
 </body>
+<script>
+
+
+</script>
 </html>
 
 

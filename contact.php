@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Contact</title>
+    <link rel="icon" href="Assets/favicon.png" type="image/x-icon">
 </head>
 <body>
     <?php include("Navbar.php"); ?>

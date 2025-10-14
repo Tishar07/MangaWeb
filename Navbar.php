@@ -13,8 +13,8 @@
 <body>
   <header>
     <div class="navbar">
-      <div class="icon">
-        <h2 class="logo">Manga4u</h2>
+      <div class="logo">
+        <img src="Assets/Logo.png" alt="Logo Image">
       </div>
       <div class="menu">
         <ul>
