@@ -10,7 +10,7 @@ include("php/FetchAllManga.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manga List</title>
     <link rel="icon" href="Assets/favicon.png" type="image/x-icon">
-  
+    
     
     <script
     src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -91,6 +91,33 @@ include("php/FetchAllManga.php");
             ?>
         </div>
     </div>
+
+    <div class="manga-container">
+    <?php 
+    $MangaData = $_SESSION['MangaData'] ?? [];
+    if (!empty($MangaData)) {
+        foreach ($MangaData as $manga): 
+    ?>
+            <div class="manga-card">
+                <p><?php echo htmlspecialchars($manga['MangaName']); ?></p>
+                <img src="<?php echo $manga['FrontCover']; ?>" alt="Manga Cover">
+                <h3 class="Price">
+                    <br>
+                    Rs <?php echo htmlspecialchars($manga['Price']); ?>
+                </h3>
+                
+
+                <button class="add-to-cart-btn" data-manga-id="<?php echo $manga['MangaID']; ?>">Add to Cart</button>
+            </div>
+        <?php endforeach;
+    } else {
+        echo "<p>No manga data available.</p>";
+    }
+    ?>
+</div>
+
+
+<script src="js/cart.js"></script>
     <?php include("Footer.php");?>
 
 <script>
@@ -128,7 +155,7 @@ $(document).ready(function() {
 });
 
 </script>
-
+<script src="js/cart.js"></script>
 
 
 

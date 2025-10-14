@@ -13,7 +13,6 @@ $cartItems = [];
 $subtotal = 0;
 $shipping = 8.00; 
 
-
 $sql = "SELECT m.MangaID, m.MangaName, m.Price, m.FrontCover, ci.Quantity 
         FROM cart_items ci 
         JOIN manga m ON ci.MangaID = m.MangaID 
@@ -39,11 +38,9 @@ $total = $subtotal + $shipping;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
+    <title>Your Bag</title>
     <link rel="stylesheet" href="CSS/base.css">
     <link rel="stylesheet" href="CSS/cart_page.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
@@ -51,9 +48,9 @@ $total = $subtotal + $shipping;
 
     <main class="cart-container">
         <div class="cart-items">
-            <h2>Shopping Cart</h2>
+            <h2>Bag</h2>
             <?php if (empty($cartItems)): ?>
-                <p>Your cart is empty.</p>
+                <p>Your bag is empty.</p>
             <?php else: ?>
                 <?php foreach ($cartItems as $item): ?>
                     <div class="cart-item" data-manga-id="<?php echo $item['MangaID']; ?>">
@@ -64,9 +61,7 @@ $total = $subtotal + $shipping;
                             <div class="item-actions">
                                 <label for="quantity-<?php echo $item['MangaID']; ?>">Quantity:</label>
                                 <input type="number" id="quantity-<?php echo $item['MangaID']; ?>" class="quantity-input" value="<?php echo $item['Quantity']; ?>" min="1">
-                                <button class="remove-btn">
-                                    <i class="fa-solid fa-trash"></i> Remove
-                                </button>
+                                <button class="remove-btn">Remove</button>
                             </div>
                         </div>
                         <div class="item-price">
@@ -77,7 +72,7 @@ $total = $subtotal + $shipping;
             <?php endif; ?>
         </div>
 
-        <aside class="cart-summary">
+        <div class="cart-summary">
             <h2>Summary</h2>
             <div class="summary-row">
                 <span>Subtotal</span>
@@ -93,7 +88,7 @@ $total = $subtotal + $shipping;
             </div>
             <button class="checkout-btn">Checkout</button>
             <button class="paypal-btn">PayPal</button>
-        </aside>
+        </div>
     </main>
 
     <?php include("Footer.php"); ?>
