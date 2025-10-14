@@ -51,6 +51,10 @@ if (!isset($_SESSION['UserID'])) {
     <?php include("promotion.php"); ?>
   </section>
 
+  <section class="faq-section">
+    <?php include("FAQ.php"); ?>
+  </section>
+
   <?php include("Footer.php"); ?>
 </body>
 

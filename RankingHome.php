@@ -33,7 +33,7 @@ ksort($ordered);
 ?>
 
 <div class="ranking-container">
-    <h2 class="ranking-title">🏆 Best Sellers</h2>
+    <h2 class="ranking-title">Top 3 Best Sellers</h2>
     <div class="podium-layout">
         <?php
         $rankClasses = ['second', 'first', 'third'];
