@@ -25,9 +25,6 @@
             <a href="MangaList.php"><i class="fa-solid fa-book-open"></i> Manga List</a>
           </li>
           <li>
-            <a href="Genre.php"><i class="fa-solid fa-layer-group"></i> Genre</a>
-          </li>
-          <li>
             <a href="contact.php"><i class="fa-solid fa-envelope"></i> Contact</a>
           </li>
           <li>
