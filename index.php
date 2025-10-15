@@ -1,7 +1,6 @@
 <?php
 session_start();
 include("php/db_connect.php");
-
 if (!isset($_SESSION['UserID'])) {
   header('Location: Login.php');
   exit();
@@ -31,6 +30,8 @@ if (!isset($_SESSION['UserID'])) {
   <link rel="stylesheet" href="CSS/slider.css" />
   <link rel="stylesheet" href="CSS/sections.css" />
   <link rel="stylesheet" href="CSS/responsive.css" />
+  <link rel="stylesheet" href="CSS/ReviewSlider.css">
+  
 </head>
 
 <body>
@@ -53,11 +54,15 @@ if (!isset($_SESSION['UserID'])) {
     <?php include("promotion.php"); ?>
   </section>
 
-  <section class="faq-section">
+
+  <?php include("Comments.php"); ?>
+
+  <section class="faq-section"> 
     <?php include("FAQ.php"); ?>
   </section>
 
   <?php include("Footer.php"); ?>
+  <script src ="js/ReviewSlider.js"></script>
 </body>
 
 </html>

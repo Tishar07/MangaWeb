@@ -51,9 +51,9 @@ if (isset($_POST['sort']) && !empty($_POST['sort'])) {
     }
 }
 
+
+
 $result = mysqli_query($conn, $sqlBase);
-
-
 
 if ($result && mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {

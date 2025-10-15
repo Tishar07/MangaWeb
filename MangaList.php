@@ -1,7 +1,6 @@
 <?php
 include("php/db_connect.php");
 include("php/FetchAllManga.php");
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +10,6 @@ include("php/FetchAllManga.php");
     <title>Manga List</title>
     <link rel="icon" href="Assets/favicon.png" type="image/x-icon">
     
-    
     <script
     src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
@@ -19,6 +17,7 @@ include("php/FetchAllManga.php");
 
     <link rel="stylesheet" href="CSS/MangaList.css">
     <link rel="stylesheet" href="Style/base.css">
+
 </head>
 <body>
     <?php include("Navbar.php"); ?>
@@ -92,38 +91,13 @@ include("php/FetchAllManga.php");
         </div>
     </div>
 
-    <div class="manga-container">
-    <?php 
-    $MangaData = $_SESSION['MangaData'] ?? [];
-    if (!empty($MangaData)) {
-        foreach ($MangaData as $manga): 
-    ?>
-            <div class="manga-card">
-                <p><?php echo htmlspecialchars($manga['MangaName']); ?></p>
-                <img src="<?php echo $manga['FrontCover']; ?>" alt="Manga Cover">
-                <h3 class="Price">
-                    <br>
-                    Rs <?php echo htmlspecialchars($manga['Price']); ?>
-                </h3>
-                
-
-                <button class="add-to-cart-btn" data-manga-id="<?php echo $manga['MangaID']; ?>">Add to Cart</button>
-            </div>
-        <?php endforeach;
-    } else {
-        echo "<p>No manga data available.</p>";
-    }
-    ?>
-</div>
 
 
 <script src="js/cart.js"></script>
-    <?php include("Footer.php");?>
+<?php include("Footer.php");?>
 
 <script>
 $(document).ready(function() {
-
-    
     function fetchManga() {
         var selectedGenres = [];
         $("input[name='Genres']:checked").each(function() {
@@ -148,17 +122,12 @@ $(document).ready(function() {
             }
         });
     }
-
     
     $("input[name='Genres']").on('change', fetchManga);
     $("#SortingFilter").on('change', fetchManga);
 });
 
 </script>
-<script src="js/cart.js"></script>
-
-
-
 
 </body>
 </html>

@@ -1,4 +1,5 @@
 <?php 
+include("php/db_connect.php");
 $sql = "SELECT m.MangaID, m.MangaName, m.FrontCover, m.MangaDescription, m.Price, g.GenreName
         FROM (
             SELECT * FROM Manga LIMIT 0,6
@@ -7,7 +8,8 @@ $sql = "SELECT m.MangaID, m.MangaName, m.FrontCover, m.MangaDescription, m.Price
         JOIN Genre g ON x.GenreID = g.GenreID";
 $result = mysqli_query($conn, $sql);
 
-$MangaData = []; 
+$MangaData = [];
+
 
 while ($row = mysqli_fetch_assoc($result)) {
     $id = $row['MangaID'];
