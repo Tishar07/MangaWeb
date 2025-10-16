@@ -1,6 +1,3 @@
-<?php
-
-?>
 
 <div class="slider">
     <div class="slides">

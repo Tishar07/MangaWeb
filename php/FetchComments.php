@@ -1,5 +1,8 @@
 <?php
 include 'php/db_connect.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $sql = "SELECT 
 	m.MangaID,

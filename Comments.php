@@ -1,5 +1,8 @@
 <?php
 include 'php/FetchComments.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <h2 class="section-title">Recent Reviews</h2>
 <div class="SectionComment">
@@ -13,14 +16,19 @@ include 'php/FetchComments.php';
                 <?php
                 if (isset($_SESSION['recentReviews'])) {
                     $reviews = $_SESSION['recentReviews'];
-                    foreach ($reviews as $review) {
-                        echo '<div class="Commentslide">';
-                        echo '<h3>' . htmlspecialchars($review['MangaName']) . '</h3>';
-                        echo '<p class="Commentrating">Rating: ' . htmlspecialchars($review['Rating']) . '</p>';
-                        echo '<p>' . htmlspecialchars($review['Review']) . '</p>';
-                        echo '<p><strong>By: </strong>' . htmlspecialchars($review['UserName']) . '</p>';
-                        echo '</div>';
-                    }
+                    foreach ($reviews as $review):
+                        if (!empty($review['MangaID'])):
+                ?>
+                        <div class="Commentslide">
+                            <a href="manga.php?id=<?= htmlspecialchars($review['MangaID']) ?>" class="manga-link"><h3><?= htmlspecialchars($review['MangaName']) ?></h3> </a>
+                            <p class="Commentrating">Rating: <?= htmlspecialchars($review['Rating']) ?></p>
+                            <p><?= htmlspecialchars($review['Review']) ?></p>
+                            <p><strong>By: </strong><?= htmlspecialchars($review['UserName']) ?></p>
+                        </div>
+                   
+                <?php
+                        endif;
+                    endforeach;
                 } else {
                     echo '<div class="Commentslide">No reviews yet.</div>';
                 }
@@ -32,4 +40,3 @@ include 'php/FetchComments.php';
         </div>
     </div>
 </div>
-

@@ -153,3 +153,9 @@ select option {
     padding-left: 10px;
     color: white;
 }
+
+.manga-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit;        /* Keep text color */
+    display: block;        /* Make the entire card clickable */
+}

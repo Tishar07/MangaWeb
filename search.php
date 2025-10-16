@@ -10,6 +10,9 @@
 
 <?php
 include("php/db_connect.php");
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (isset($_GET['query'])) {
     $search = mysqli_real_escape_string($conn, $_GET['query']);
@@ -31,18 +34,20 @@ if (isset($_GET['query'])) {
 
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            
-            echo "<div class='manga-card'>";
-            echo "  <img src='" . htmlspecialchars($row['FrontCover']) . "' alt='" . htmlspecialchars($row['MangaName']) . "' class='cover-img'>";
-            echo "  <h3 class='manga-title'>" . htmlspecialchars($row['MangaName']) . "</h3>";
-            echo "  <p class='manga-genre'><strong>Genres:</strong> " . htmlspecialchars($row['Genres']) . "</p>";
-            echo "  <p class='manga-description'><strong>Description:</strong> " . htmlspecialchars($row['MangaDescription']) . "</p>";
-            echo "  <p class='manga-price'><strong>Price:</strong> Rs " . htmlspecialchars($row['Price']) . "</p>";
-            echo "</div>";
+            echo '<a href="manga.php?id=' . $row['MangaID'] . '" class="manga-link">';
+            echo '<div class="manga-card">';
+            echo '  <img src="' . htmlspecialchars($row['FrontCover']) . '" alt="' . htmlspecialchars($row['MangaName']) . '" class="cover-img">';
+            echo '  <h3 class="manga-title">' . htmlspecialchars($row['MangaName']) . '</h3>';
+            echo '  <p class="manga-genre"><strong>Genres:</strong> ' . htmlspecialchars($row['Genres']) . '</p>';
+            echo '  <p class="manga-description"><strong>Description:</strong> ' . htmlspecialchars($row['MangaDescription']) . '</p>';
+            echo '  <p class="manga-price"><strong>Price:</strong> Rs ' . htmlspecialchars($row['Price']) . '</p>';
+            echo '</div>';
+            echo '</a>';
         }
     } else {
         echo "<p class='no-results'>No manga found matching your search.</p>";
     }
+
     echo "</div>";
 }
     include("Footer.php");

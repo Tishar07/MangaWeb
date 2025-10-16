@@ -1,6 +1,10 @@
 <?php
 include("php/db_connect.php");
 include("php/FetchAllManga.php");
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,40 +59,44 @@ include("php/FetchAllManga.php");
             </div>
         </div>
     
-        <div class="manga-container">
-            <?php 
-            $MangaData = $_SESSION['MangaData'] ?? [];
-            if (!empty($MangaData)) {
-                foreach ($MangaData as $manga): 
-            ?>
-                    <div class="manga-card">
-                        <p><?php echo htmlspecialchars($manga['MangaName']); ?></p>
-                        <img src="<?php echo $manga['FrontCover']; ?>" alt="Manga Cover">
-                        <h3 class="Genre">
-                            <?php 
-                                echo htmlspecialchars(implode(', ', $manga['Genres']));
-                            ?>
-                        </h3>
-                        <h4 class= "Description">
-                            <br>
-                            <?php
-                                echo htmlspecialchars($manga['MangaDescription']);
-                            ?>
-                        </h4>
-                        <h3 class="Price">
-                            <br>
-                            Rs
-                            <?php
-                                echo htmlspecialchars($manga['Price']);
-                            ?>
-                        </h3>
-                    </div>
-                <?php endforeach;
-            } else {
-                echo "<p>No manga data available.</p>";
-            }
-            ?>
-        </div>
+<div class="manga-container">
+    <?php 
+    $MangaData = $_SESSION['MangaData'] ?? [];
+    if (!empty($MangaData)) {
+        foreach ($MangaData as $manga): 
+    ?>
+        <a href="manga.php?id=<?php echo $manga['MangaID']; ?>" class="manga-link">
+            <div class="manga-card">
+                <p><?php echo htmlspecialchars($manga['MangaName']); ?></p>
+                <img src="<?php echo htmlspecialchars($manga['FrontCover']); ?>" alt="Manga Cover">
+                <h3 class="Genre">
+                    <?php 
+                        echo htmlspecialchars(implode(', ', $manga['Genres']));
+                    ?>
+                </h3>
+                <h4 class="Description">
+                    <br>
+                    <?php
+                        echo htmlspecialchars($manga['MangaDescription']);
+                    ?>
+                </h4>
+                <h3 class="Price">
+                    <br>
+                    Rs
+                    <?php
+                        echo htmlspecialchars($manga['Price']);
+                    ?>
+                </h3>
+            </div>
+        </a>
+    <?php 
+        endforeach;
+    } else {
+        echo "<p>No manga data available.</p>";
+    }
+    ?>
+</div>
+
     </div>
 
 

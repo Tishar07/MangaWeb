@@ -1,5 +1,8 @@
 <?php
 include("db_connect.php");
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $sqlBase = "
     SELECT m.MangaID, m.MangaName, m.MangaDescription, m.FrontCover, m.Price,
@@ -73,13 +76,16 @@ if ($result && mysqli_num_rows($result) > 0) {
         }
         $GenresStr = implode(', ', $GenresArr);
 
-        echo '<div class="manga-card">
-                <p>' . htmlspecialchars($row['MangaName']) . '</p>
-                <img src="' . htmlspecialchars($row['FrontCover']) . '" alt="Manga Cover">
-                <h3 class="Genre">' . htmlspecialchars($GenresStr) . '</h3>
-                <h4 class="Description">' . htmlspecialchars($row['MangaDescription']) . '</h4>
-                <h3 class="Price">Rs ' . htmlspecialchars($row['Price']) . '</h3>
-              </div>';
+        echo '
+            <a href="manga.php?id=' . $row['MangaID'] . '" class="manga-link">
+                <div class="manga-card">
+                    <p>' . htmlspecialchars($row['MangaName']) . '</p>
+                    <img src="' . htmlspecialchars($row['FrontCover']) . '" alt="Manga Cover">
+                    <h3 class="Genre">' . htmlspecialchars($GenresStr) . '</h3>
+                    <h4 class="Description">' . htmlspecialchars($row['MangaDescription']) . '</h4>
+                    <h3 class="Price">Rs ' . htmlspecialchars($row['Price']) . '</h3>
+                </div>
+            </a>';
     }
 } else {
     echo "<p>No manga found for selected filters.</p>";

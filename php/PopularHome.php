@@ -1,6 +1,8 @@
 <?php
 include("php/db_connect.php");
-
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $query = "SELECT * FROM manga";
 $result = mysqli_query($conn, $query);
@@ -14,6 +16,7 @@ if ($result && mysqli_num_rows($result) > 0) {
     }
 
     $mangaList[] = [
+      'MangaID' => $row['MangaID'],
       'MangaName' => $row['MangaName'],
       'Price' => $row['Price'],
       'FrontCover' => $row['FrontCover'],
@@ -32,22 +35,25 @@ if ($result && mysqli_num_rows($result) > 0) {
   <link rel="stylesheet" href="CSS/sections.css" />
 
 <body>
-  <section class="popular-section">
+<section class="popular-section">
     <h2 class="section-title">Manga</h2>
     <div id="popular" class="manga-container">
       <?php if (!empty($mangaList)): ?>
         <?php foreach ($mangaList as $manga): ?>
-          <div class="manga-card">
-            <img src="<?= htmlspecialchars($manga['FrontCover']) ?>" alt="<?= htmlspecialchars($manga['MangaName']) ?>" class="manga-cover">
-            <h3 class="manga-title"><?= htmlspecialchars($manga['MangaName']) ?></h3>
-            <p class="manga-price">₨ <?= htmlspecialchars($manga['Price']) ?></p>
-          </div>
+          <a href="manga.php?id=<?= $manga['MangaID'] ?>" class="manga-link">
+            <div class="manga-card">
+              <img src="<?= htmlspecialchars($manga['FrontCover']) ?>" alt="<?= htmlspecialchars($manga['MangaName']) ?>" class="manga-cover">
+              <h3 class="manga-title"><?= htmlspecialchars($manga['MangaName']) ?></h3>
+              <p class="manga-price">₨ <?= htmlspecialchars($manga['Price']) ?></p>
+            </div>
+          </a>
         <?php endforeach; ?>
       <?php else: ?>
         <p>No manga available at the moment.</p>
       <?php endif; ?>
     </div>
-  </section>
+</section>
+
 </body>
 
 </html>

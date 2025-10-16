@@ -12,6 +12,12 @@
   backdrop-filter: blur(6px);
 }
 
+
+body {
+  margin: 0;
+  padding-top: 80px; 
+}
+
 .logo img {
   width: 90px;
   height: 40px;
@@ -61,7 +67,7 @@
 
 .btn {
   height: 40px;
-  width: 100px;
+  width: 80px;
   background: #f44336;
   color: #fff;
   border: 1px solid #f44336;

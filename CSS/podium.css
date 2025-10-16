@@ -99,3 +99,9 @@
   border-color: #cd7f32;
   box-shadow: 0 0 15px #cd7f32;
 }
+
+.manga-link {
+    text-decoration: none; 
+    color: inherit;        
+    display: block;       
+}

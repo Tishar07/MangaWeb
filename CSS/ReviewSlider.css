@@ -97,3 +97,9 @@ h2 {
   padding-left: 10px;
   color: #ffffff;
 }
+
+.manga-link {
+    text-decoration: none; 
+    color: inherit;        
+    display: block;       
+}

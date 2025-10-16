@@ -1,8 +1,12 @@
 <?php 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 include("php/db_connect.php");
 $sql = "SELECT m.MangaID, m.MangaName, m.FrontCover, m.MangaDescription, m.Price, g.GenreName
         FROM (
-            SELECT * FROM Manga LIMIT 0,6
+            SELECT * FROM Manga 
         ) AS m
         JOIN Manga_Genre x ON m.MangaID = x.MangaID
         JOIN Genre g ON x.GenreID = g.GenreID";

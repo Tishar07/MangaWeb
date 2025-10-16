@@ -1,6 +1,10 @@
 <?php
-$cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +14,8 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
   <link rel="stylesheet" href="CSS/Navbar.css" />
   <link rel="stylesheet" href="CSS/base.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+
 </head>
 <body>
   <header>
@@ -24,8 +30,8 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
           <li><a href="contact.php"><i class="fa-solid fa-envelope"></i> Contact</a></li>
           <li><a href="Account.php"><i class="fa-solid fa-user"></i> Account</a></li>
           <li>
-            <a href="cart_page.php"><i class="fa-solid fa-cart-shopping"></i> Cart 
-              (<span id="cart-count"><?php echo $cartCount; ?></span>)
+            <a href="cart.php">
+              <i class="fa-solid fa-cart-shopping"></i> Cart 
             </a>
           </li>
         </ul>
@@ -39,4 +45,5 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
     </div>
   </header>
 </body>
+
 </html>

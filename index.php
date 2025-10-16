@@ -1,5 +1,9 @@
 <?php
-session_start();
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 include("php/db_connect.php");
 if (!isset($_SESSION['UserID'])) {
   header('Location: Login.php');

@@ -74,3 +74,10 @@
   color: #f44336;
   font-weight: bold;
 }
+
+
+.manga-link {
+  text-decoration: none; 
+  color: inherit;        
+  display: block;       
+}

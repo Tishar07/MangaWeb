@@ -1,102 +1,106 @@
 <?php
-session_start();
 include("php/db_connect.php");
-
-
-if (!isset($_SESSION['UserID'])) {
-    header('Location: Login.php');
-    exit();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 
-$userId = $_SESSION['UserID'];
-$cartItems = [];
-$subtotal = 0;
-$shipping = 8.00; 
+$userID = $_SESSION['UserID'];
+
+$stmt = $conn->prepare("
+    SELECT m.MangaID, m.MangaName, m.Price, m.FrontCover
+    FROM cart_items c
+    JOIN manga m ON c.MangaID = m.MangaID
+    WHERE c.UserID = ?
+");
 
 
-$sql = "SELECT m.MangaID, m.MangaName, m.Price, m.FrontCover, ci.Quantity 
-        FROM cart_items ci 
-        JOIN manga m ON ci.MangaID = m.MangaID 
-        WHERE ci.UserID = ?";
-
-if ($stmt = $conn->prepare($sql)) {
-    $stmt->bind_param("i", $userId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    while ($row = $result->fetch_assoc()) {
-        $cartItems[] = $row;
-        $subtotal += $row['Price'] * $row['Quantity'];
-    }
-    $stmt->close();
-}
-
-$total = $subtotal + $shipping;
+$stmt->bind_param("i",$userID);
+$stmt->execute();
+$result = $stmt->get_result();
+$cartData = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
-    <link rel="stylesheet" href="CSS/base.css">
-    <link rel="stylesheet" href="CSS/cart_page.css">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Your Cart</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="icon" href="Assets/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="CSS/cart_page.css">
+
 </head>
 <body>
-    <?php include("Navbar.php"); ?>
+    <?php include("Navbar.php");?>
+    
 
-    <main class="cart-container">
-        <div class="cart-items">
-            <h2>Shopping Cart</h2>
-            <?php if (empty($cartItems)): ?>
-                <p>Your cart is empty.</p>
-            <?php else: ?>
-                <?php foreach ($cartItems as $item): ?>
-                    <div class="cart-item" data-manga-id="<?php echo $item['MangaID']; ?>">
-                        <img src="<?php echo htmlspecialchars($item['FrontCover']); ?>" alt="<?php echo htmlspecialchars($item['MangaName']); ?>">
-                        <div class="item-details">
-                            <h3><?php echo htmlspecialchars($item['MangaName']); ?></h3>
-                            <p>Price: Rs <?php echo number_format($item['Price'], 2); ?></p>
-                            <div class="item-actions">
-                                <label for="quantity-<?php echo $item['MangaID']; ?>">Quantity:</label>
-                                <input type="number" id="quantity-<?php echo $item['MangaID']; ?>" class="quantity-input" value="<?php echo $item['Quantity']; ?>" min="1">
-                                <button class="remove-btn">
-                                    <i class="fa-solid fa-trash"></i> Remove
-                                </button>
-                            </div>
-                        </div>
-                        <div class="item-price">
-                            <p>Rs <?php echo number_format($item['Price'] * $item['Quantity'], 2); ?></p>
+    <div class="cart-container">
+        <h2>Your Cart</h2>
+        <ul id="cart-list">
+        <?php if(!empty($cartData)): ?>
+            <?php foreach($cartData as $item): ?>
+                <li data-id="<?= $item['MangaID'] ?>">
+                    <div class="cart-item">
+                        <img src="<?= htmlspecialchars($item['FrontCover']) ?>" alt="<?= htmlspecialchars($item['MangaName']) ?>">
+                        <div class="cart-item-info">
+                            <span class="title" style="color:white;"><?= htmlspecialchars($item['MangaName']) ?></span>
+                            <span class="price" style="color:white;">Rs <?= $item['Price'] ?></span>
                         </div>
                     </div>
-                <?php endforeach; ?>
-            <?php endif; ?>
+                    <button class="remove-from-cart">Remove</button>
+                </li>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <li style="color:white;">Your cart is empty.</li>
+        <?php endif; ?>
+        </ul>
+
+        <div class="cart-total" style="color:white;">
+            Total: Rs <span id="cart-total">0</span>
         </div>
 
-        <aside class="cart-summary">
-            <h2>Summary</h2>
-            <div class="summary-row">
-                <span>Subtotal</span>
-                <span id="subtotal">Rs <?php echo number_format($subtotal, 2); ?></span>
-            </div>
-            <div class="summary-row">
-                <span>Estimated Shipping & Handling</span>
-                <span>Rs <?php echo number_format($shipping, 2); ?></span>
-            </div>
-            <div class="summary-row total">
-                <span>Total</span>
-                <span id="total">Rs <?php echo number_format($total, 2); ?></span>
-            </div>
-            <button class="checkout-btn">Checkout</button>
-            <button class="paypal-btn">PayPal</button>
-        </aside>
-    </main>
+        <form action="Payment.php" method="POST">
+            <button type="submit" class="pay-btn">Proceed to Pay</button>
+        </form>
 
-    <?php include("Footer.php"); ?>
-    <script src="js/cart.js"></script>
+    </div>
+    <?php include("Footer.php");?>
+
+<script>
+$(document).ready(function(){
+
+    function updateCartTotal(){
+        let total = 0;
+        $("#cart-list li").each(function(){
+            const priceMatch = $(this).find(".price").text().match(/Rs\s*(\d+)/);
+            if(priceMatch) total += parseFloat(priceMatch[1]);
+        });
+        $("#cart-total").text(total.toFixed(2));
+    }
+
+    updateCartTotal();
+
+    $(document).on("click", ".remove-from-cart", function(){
+        const li = $(this).closest("li");
+        const mangaID = li.data("id");
+
+        $.ajax({
+            url: "php/cart_actions.php",
+            type: "POST",
+            data: { action: "remove", MangaID: mangaID },
+            success: function(response){
+                const data = JSON.parse(response);
+                li.remove();
+                updateCartTotal();
+            }
+        });
+    });
+
+});
+</script>
+
 </body>
 </html>
