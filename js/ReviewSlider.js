@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     else if (index < 0) currentIndex = totalSlides - slidesToShow;
     else currentIndex = index;
 
-    const slideWidth = slides[0].offsetWidth + 15; // match CSS margin-right
+    const slideWidth = slides[0].offsetWidth + 15; 
     slider.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
   }
 
