@@ -155,7 +155,7 @@ select option {
 }
 
 .manga-link {
-    text-decoration: none; /* Remove underline */
-    color: inherit;        /* Keep text color */
-    display: block;        /* Make the entire card clickable */
+    text-decoration: none; 
+    color: inherit;       
+    display: block;        
 }

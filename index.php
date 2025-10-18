@@ -46,9 +46,9 @@ if (!isset($_SESSION['UserID'])) {
     <?php include("SliderHome.php"); ?>
   </section>
 
-  <section class="popular-section">
-    <?php include("php/PopularHome.php"); ?>
-  </section>
+  
+  <?php include("php/PopularHome.php"); ?>
+ 
 
   <section class="ranking-section">
     <?php include("RankingHome.php"); ?>
