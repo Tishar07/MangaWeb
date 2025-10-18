@@ -52,6 +52,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 </body>
 <script>
+
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.querySelector("form"); 
 
@@ -65,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function() {
         { id: "password", name: "Password" }
     ];
 
-
     fields.forEach(field => {
         const input = form.querySelector(`input[name="${field.id}"]`);
         if (input) {
@@ -77,7 +77,6 @@ document.addEventListener("DOMContentLoaded", function() {
             field.error = error;
         }
     });
-
 
     form.addEventListener("submit", function(e) {
         let hasError = false;
@@ -97,7 +96,6 @@ document.addEventListener("DOMContentLoaded", function() {
         if (hasError) e.preventDefault();
     });
 
-    
     fields.forEach(field => {
         const input = form.querySelector(`input[name="${field.id}"]`);
         input.addEventListener("input", () => {
@@ -110,6 +108,8 @@ document.addEventListener("DOMContentLoaded", function() {
 document.getElementById("goBackBtn").addEventListener("click", function() {
     window.location.href = "Login.php";
 });
+
+
 </script>
 
 

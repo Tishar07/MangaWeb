@@ -173,6 +173,7 @@ if (isset($_POST['submit_review']) && isset($_SESSION['UserID'])) {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    
 $(document).ready(function() {
     $(".cart-button").on("click", function() {
         const mangaID = <?= $manga['MangaID'] ?>;

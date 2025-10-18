@@ -82,11 +82,7 @@
 
 <?php
 include("php/db_connect.php");
-
 session_start();
-
-$loginError = ""; 
-
 if (isset($_POST['login'])) {
     $Email = trim($_POST["Email"]);
     $Password = trim($_POST["password"]);
@@ -100,13 +96,14 @@ if (isset($_POST['login'])) {
         $row = $result->fetch_assoc();
         if ($Password === $row['password']) { 
             $_SESSION['UserID'] = $row['UserID'];
+            
             header("Location: index.php");
             exit;
         } else {
-            $loginError = "Password or Email Invalid";
+            echo "<script>alert('Password or Email Invalid');</script>";
         }
     } else {
-        $loginError = "Password or Email Invalid";
+        echo "<script>alert('Password or Email Invalid');</script>";
     }
 }
 ?>

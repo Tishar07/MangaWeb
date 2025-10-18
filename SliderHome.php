@@ -110,7 +110,6 @@
 </head>
 
 <body>
-
   <div class="slider-section">
     <div class="slider">
       <div class="slides-wrapper">
@@ -173,6 +172,7 @@
   </div>
 
   <script>
+
     document.addEventListener("DOMContentLoaded", function () {
       const slides = document.querySelectorAll(".slide");
       const slideContainer = document.querySelector(".slides");
@@ -197,6 +197,7 @@
 
       showSlide(currentIndex);
     });
+    
   </script>
 
 </body>

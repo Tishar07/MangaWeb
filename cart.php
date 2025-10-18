@@ -70,8 +70,8 @@ $cartData = $result->fetch_all(MYSQLI_ASSOC);
     <?php include("Footer.php");?>
 
 <script>
-$(document).ready(function(){
 
+$(document).ready(function(){
     function updateCartTotal(){
         let total = 0;
         $("#cart-list li").each(function(){
