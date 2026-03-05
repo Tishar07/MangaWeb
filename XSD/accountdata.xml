@@ -1,0 +1,9 @@
+<UserAccount>
+    <FirstName></FirstName>
+    <LastName></LastName>
+    <Email></Email>
+    <ContactNumber></ContactNumber>
+    <Street>Main Street</Street>
+    <City></City>
+    <Password></Password>
+</UserAccount>
