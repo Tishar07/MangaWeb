@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MangaList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="manga.xsd">
+
+    <Manga>
+        <MangaID></MangaID>
+        <MangaName></MangaName>
+        <FrontCover></FrontCover>
+        <MangaDescription></MangaDescription>
+        <Price></Price>
+
+        <Genres>
+            <Genre></Genre>
+        </Genres>
+    </Manga>
+
+</MangaList>
